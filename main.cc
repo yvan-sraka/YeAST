@@ -1,45 +1,39 @@
 #include <iostream>
 
-#include <QtCore/QCoreApplication>
-#include <QString>
-
-using namespace std;
-
+//extern std::istream std::cin;
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
-
     /* -- Recovery cmds entered -- */
 
-    string c, lang, path;
+    std::string c, lang, path;
 
     if (argc == 1)
     {
-        cout << "Enter a cmd : ";
-        cin >> c;
+        std::cout << "Enter a cmd : ";
+		//std::cin >> c;
     }
 
     /* -- Help cmd -- */
 
-    if (c == "help" || QString(argv[0]) == "--help")
+    if (c == "help" || std::string(argv[0]) == "--help")
     {
-        cout << endl << "*** QMCE Help : ***" << endl;
-        cout << "build : displays help." << endl;
-        cout << "help : build function." << endl << endl;
+		std::cout << std::endl << "*** QMCE Help : ***" << std::endl;
+        std::cout << "build : displays help." << std::endl;
+        std::cout << "help : build function." << std::endl << std::endl;
     }
 
     /* -- Build cmd -- */
 
-    if (c == "build" || QString(argv[0]) == "-build")
+    if (c == "build" || std::string(argv[0]) == "-build")
     {
-        cout << "Choose a language : ";
-        cin >> lang;
+        std::cout << "Choose a language : ";
+        //std::cin >> lang;
 
-        cout << "Choose a path : ";
-        cin >> path;
+        std::cout << "Choose a path : ";
+        //std::cin >> path;
 
-        string cmd = "";
+        std::string cmd = "";
 
         if (lang == "C")
         {
@@ -88,9 +82,7 @@ int main(int argc, char *argv[])
         }
 
         else
-        {
-            cout << "WARNING : No module corresponds to the requested action ..." << endl;
-        }
+            std::cout << "WARNING : No module corresponds to the requested action ..." << std::endl;
 
         system(cmd.c_str());
     }
