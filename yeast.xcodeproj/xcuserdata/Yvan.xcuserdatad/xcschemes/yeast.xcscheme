@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8DC2A10CC981B938367F85AB"
-               BuildableName = "qmce"
-               BlueprintName = "qmce"
-               ReferencedContainer = "container:qmce.xcodeproj">
+               BlueprintIdentifier = "C2AB979F4493104B13F09962"
+               BuildableName = "yeast"
+               BlueprintName = "yeast"
+               ReferencedContainer = "container:yeast.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8DC2A10CC981B938367F85AB"
-            BuildableName = "qmce"
-            BlueprintName = "qmce"
-            ReferencedContainer = "container:qmce.xcodeproj">
+            BlueprintIdentifier = "C2AB979F4493104B13F09962"
+            BuildableName = "yeast"
+            BlueprintName = "yeast"
+            ReferencedContainer = "container:yeast.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -51,10 +51,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8DC2A10CC981B938367F85AB"
-            BuildableName = "qmce"
-            BlueprintName = "qmce"
-            ReferencedContainer = "container:qmce.xcodeproj">
+            BlueprintIdentifier = "C2AB979F4493104B13F09962"
+            BuildableName = "yeast"
+            BlueprintName = "yeast"
+            ReferencedContainer = "container:yeast.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -69,10 +69,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8DC2A10CC981B938367F85AB"
-            BuildableName = "qmce"
-            BlueprintName = "qmce"
-            ReferencedContainer = "container:qmce.xcodeproj">
+            BlueprintIdentifier = "C2AB979F4493104B13F09962"
+            BuildableName = "yeast"
+            BlueprintName = "yeast"
+            ReferencedContainer = "container:yeast.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

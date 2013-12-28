@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:qmce.xcodeproj">
+      location = "self:yeast.xcodeproj">
    </FileRef>
 </Workspace>

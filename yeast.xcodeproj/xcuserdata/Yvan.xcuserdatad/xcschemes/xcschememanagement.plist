@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>qmce.xcscheme</key>
+		<key>yeast.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,12 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>8DC2A10CC981B938367F85AB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9B74DDBED5D1357CA65B072A</key>
+		<key>C2AB979F4493104B13F09962</key>
 		<dict>
 			<key>primary</key>
 			<true/>

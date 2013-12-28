@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7F027FE2-1CF1-4533-A65E-625DFD154DB8</string>
+	<key>IDESourceControlProjectName</key>
+	<string>yeast</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>53151C5A-7FD7-4F6B-9ECA-D1878CDC7F0F</key>
+		<string>https://github.com/yvan-sraka/Yeast.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>yeast.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>53151C5A-7FD7-4F6B-9ECA-D1878CDC7F0F</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/yvan-sraka/Yeast.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>53151C5A-7FD7-4F6B-9ECA-D1878CDC7F0F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>53151C5A-7FD7-4F6B-9ECA-D1878CDC7F0F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Yeast</string>
+		</dict>
+	</array>
+</dict>
+</plist>
