@@ -11,14 +11,14 @@ int main(int argc, char *argv[])
     if (argc == 1)
     {
         std::cout << "Enter a cmd : ";
-		//std::cin >> c;
+        //std::cin >> c;
     }
 
     /* -- Help cmd -- */
 
     if (c == "help" || std::string(argv[0]) == "--help")
     {
-		std::cout << std::endl << "*** QMCE Help : ***" << std::endl;
+        std::cout << std::endl << "*** QMCE Help : ***" << std::endl;
         std::cout << "build : displays help." << std::endl;
         std::cout << "help : build function." << std::endl << std::endl;
     }
