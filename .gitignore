@@ -12,5 +12,12 @@
 *.la
 *.a
 
-# OS X Files
+# Qt 4 files
+moc_*
+
+# OS X files
 .DS_Store
+._*
+
+# Windows files
+Thumbs.db
