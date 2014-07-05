@@ -1,4 +1,4 @@
-YeAST
+YeAST [![Build Status](https://travis-ci.com/yvan-sraka/yeast.svg?token=r9S39DVzZNKVuhr9yRC6&branch=master)](https://travis-ci.com/yvan-sraka/yeast)
 =====
 
 Powerful next generation scripting !
