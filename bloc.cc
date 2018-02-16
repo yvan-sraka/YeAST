@@ -34,8 +34,8 @@ std::string Bloc::extract(void) {
     FILE* pipe = popen(cmd.c_str(), "r");
     if (!pipe)
         exit(error("bad environment: " + cmd));
-    //else
-    //    note(cmd);
+    else
+        note(cmd);
     char buffer[128];
     std::string result;
     while (!feof(pipe)) {

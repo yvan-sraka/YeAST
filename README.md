@@ -4,7 +4,162 @@ YeAST [![Build Status](https://travis-ci.com/yvan-sraka/yeast.svg?token=r9S39DVz
 Powerful next generation scripting !
 
 
-### Modules :
+You already know:
+
+```Shell
+#! /bin/sh
+echo "Hello world"
+```
+
+Now with Yeast you can use any command:
+
+```Shell
+#! cat
+Hello world!
+```
+
+Which is equivalent to:
+
+```Shell
+#! cat $^
+Hello world!
+```
+
+`$^`: Temporary file containing the block
+
+Let's try:
+
+```C++
+#! clang++ -o helloWorld $^ & ./helloWorld
+#include <iostream>
+int main() {
+  	std::cout << "Hello World!" << std::endl;
+  	return 0;
+}
+```
+
+TO DO
+
+```C++
+#! clang++ -Wall -Werror -pedantic -std=c++11 \
+   -o helloWorld $^ & ./helloWorld
+#include <iostream>
+int main() {
+  	std::cout << "Hello World!" << std::endl;
+  	return 0;
+}
+```
+
+TO DO
+
+```C++
+#! clang++ -o helloWorld $^ & ./helloWorld
+#include <iostream>
+int main() {
+	std::cout << "
+	#! /usr/bin/python
+		print("Hello world!")
+	!#
+	" << std::endl;
+	return 0;
+}
+```
+
+
+---- Special Cases ----
+
+1.
+
+TO DO
+
+```C++
+#! clang++ -o helloWorld $^ & ./helloWorld
+#include <iostream>
+int main() {
+	std::cout << "
+	#! /usr/bin/python
+		print("Hello world#!") #! foo
+	!#
+	" << std::endl;
+	return 0;
+}
+```
+
+TO DO
+
+```C++
+#! clang++ -o helloWorld $^ & ./helloWorld
+#include <iostream>
+int main() {
+	std::cout << "Hello world#!" << std::endl;
+	return 0;
+}
+```
+
+
+2.
+
+TO DO
+
+```C++
+#! clang++ -o helloWorld $^ & ./helloWorld
+#include <iostream>
+int main() {
+	std::cout << "
+	#! /usr/bin/python
+		print("Hello world!")
+		print("bar")
+	!#
+	" << std::endl;
+	return 0;
+}
+```
+
+TO DO
+
+```C++
+#! clang++ -o helloWorld $^ & ./helloWorld
+#include <iostream>
+int main() {
+	std::cout << "Hello world!
+	bar" << std::endl;
+	return 0;
+}
+```
+
+--> ERROR
+
+Solution: 
+
+```C++
+#! clang++ -o helloWorld $^ & ./helloWorld
+#include <iostream>
+int main() {
+	std::cout << "
+	#! @inline
+		#! /usr/bin/python
+			print("Hello world!")
+			print("bar")
+		!#
+	#!
+	" << std::endl;
+	return 0;
+}
+```
+
+```C++
+#! clang++ -o helloWorld $^ & ./helloWorld
+#include <iostream>
+int main() {
+	std::cout << "Hello world!\nbar" << std::endl;
+	return 0;
+}
+```
+
+Powerful next generation scripting !
+
+
+### Modules : ### Dynamic shell call : ### Building on demand :
 
 `@zsh` : makes your script more portable.
 
