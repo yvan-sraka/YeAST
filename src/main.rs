@@ -5,12 +5,13 @@ use std::env;
 use std::ffi::CString;
 use std::fs::File;
 use std::fs::OpenOptions;
+use std::io::BufReader;
 use std::io::prelude::*;
 use std::process::Command;
 use std::thread;
 
 fn uuid() -> String {
-    rand::thread_rng().gen_ascii_chars().take(16).collect() // TODO
+    rand::thread_rng().gen_ascii_chars().take(32).collect()
 }
 
 fn pipe(uuid: &str) -> String {
@@ -23,42 +24,31 @@ fn pipe(uuid: &str) -> String {
 fn exec(bin: &str, cin: &str) -> String {
     let cmd = format!("{} {}", bin, cin);
     let output = Command::new("sh").args(&["-c", &cmd]).output()
-                                   .expect("failed to execute process");
-    // println!("status: {}", output.status); // DEBUG
-    // println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
-    // assert!(output.status.success()); // DEBUG
+        .expect("Error: failed to execute process");
     format!("{}", String::from_utf8_lossy(&output.stdout))
 }
 
-fn rec(contents: &str, l: u32) -> (String, u32) {
+fn rec(contents: &str, step: u32) -> (String, u32) {
     let mut output = String::from("");
-    let mut i = 0;
-    let mut j = l;
-    for line in contents.lines() { if i >= j {
+    let mut current = step; let mut i = 0; // UGLY
+    for line in contents.lines() { if i >= current { // UGLY
         if line.contains("#!") {
-            let (x, y) = rec(contents, i + 1);
-            let cmd = String::from(&line[line.find("#!").unwrap()+2..]);
-            let input = x.clone();
-
-            let cin = pipe(&uuid());
-            let cin2 = cin.clone(); // TODO
-
-            let b = thread::spawn(move || {
-                let mut file = OpenOptions::new().write(true).open(cin2)
-                        .expect("ERROR");
-                file.write_all(input.as_bytes()).expect("ERROR");
+            let (input, next) = rec(contents, i + 1); // UGLY
+            let cmd = String::from(&line[line.find("#!").unwrap() + 2..]);
+            let cout = pipe(&uuid());
+            let cin = cout.clone();
+            let writer = thread::spawn(move || {
+                let mut file = OpenOptions::new().write(true).open(cin)
+                    .expect("Error: couldn't open the file");
+                file.write_all(input.as_bytes())
+                    .expect("Error: couldn't write the file");
             });
-
-            let a = thread::spawn(move || -> String {
-                exec(&cmd, &cin)
+            let reader = thread::spawn(move || -> String {
+                exec(&cmd, &cout)
             });
-
-            b.join().expect("ERROR");
-
-            output += "\n";
-            output += &a.join().unwrap();
-
-            j = y;
+            writer.join().expect("ERROR");
+            output += &format!("\n{}", &reader.join().unwrap());
+            current = next; // UGLY
         } else if line.contains("!#") {
             return (output, i + 1);
         } else {
@@ -71,8 +61,11 @@ fn rec(contents: &str, l: u32) -> (String, u32) {
 fn main() {
     let args: Vec<String> = env::args().collect();
     let filename = &args[1];
-    let mut file = File::open(filename).expect("file not found");
+    let file = File::open(filename)
+        .expect("Error: couldn't open the file");
+    let mut reader = BufReader::new(file);
     let mut contents = String::new();
-    file.read_to_string(&mut contents).expect("error reading the file");
-    print!("{}", rec(&contents, 0).0);
+    reader.read_to_string(&mut contents)
+        .expect("Error: couldn't read the file");
+    print!("{}", rec(&contents, 0).0); // UGLY
 }
