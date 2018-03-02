@@ -28,34 +28,34 @@ fn exec(bin: &str, cin: &str) -> String {
     format!("{}", String::from_utf8_lossy(&output.stdout))
 }
 
-fn rec(contents: &str, step: u32) -> (String, u32) {
-    let mut output = String::from("");
-    let mut current = step; let mut i = 0; // UGLY
-    for line in contents.lines() { if i >= current { // UGLY
+fn rec(reader: &mut BufRead) -> String {
+    let mut line = String::new();
+    loop {
+        let len = reader.read_line(&mut line)
+            .expect("Error: couldn't read the file");
+        if len == 0 { break }
         if line.contains("#!") {
-            let (input, next) = rec(contents, i + 1); // UGLY
-            let cmd = String::from(&line[line.find("#!").unwrap() + 2..]);
-            let cout = pipe(&uuid());
-            let cin = cout.clone();
+            let cin = pipe(&uuid());
+            let cout = cin.clone();
+            let input = rec(reader);
             let writer = thread::spawn(move || {
                 let mut file = OpenOptions::new().write(true).open(cin)
                     .expect("Error: couldn't open the file");
                 file.write_all(input.as_bytes())
                     .expect("Error: couldn't write the file");
             });
+            let cursor = line.find("#!").unwrap();
+            let cmd = String::from(&line[cursor + 2..line.trim_right().len()]);
             let reader = thread::spawn(move || -> String {
                 exec(&cmd, &cout)
             });
-            writer.join().expect("ERROR");
-            output += &format!("\n{}", &reader.join().unwrap());
-            current = next; // UGLY
+            writer.join().expect("Error: couldn't join thread");
+            line = String::from(&line[..cursor]) + &reader.join().unwrap();
         } else if line.contains("!#") {
-            return (output, i + 1);
-        } else {
-            output += line;
+            return String::from(&line[..line.find("!#").unwrap()]);
         }
-    } i += 1; } // UGLY
-    return (output, i);
+    }
+    return line;
 }
 
 fn main() {
@@ -64,8 +64,5 @@ fn main() {
     let file = File::open(filename)
         .expect("Error: couldn't open the file");
     let mut reader = BufReader::new(file);
-    let mut contents = String::new();
-    reader.read_to_string(&mut contents)
-        .expect("Error: couldn't read the file");
-    print!("{}", rec(&contents, 0).0); // UGLY
+    print!("{}", rec(&mut reader));
 }

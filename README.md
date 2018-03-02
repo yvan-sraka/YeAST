@@ -1,4 +1,4 @@
-# YeAST
+# YeAST [![Build Status](https://travis-ci.org/yvan-sraka/YeAST.svg?branch=master)](https://travis-ci.org/yvan-sraka/YeAST)
 
 Yet Another Shell Trick
 
@@ -26,8 +26,8 @@ cargo run basic_example
 
 - [ ] Add bunch of input / output tests scripts.
 - [x] Create a Makefile to handle `make`, `make test` & `sudo make install` intructions.
-- [ ] Validate builds using Travis CI.
-- [ ] Read input file line by line using a Buffer.
+- [x] Validate builds using Travis CI.
+- [x] Read input file line by line using a Buffer.
 - [ ] Use [clap.rs](https://github.com/kbknapp/clap-rs) to enhance command line interactions?
 - [x] Let the use of `#! /usr/bin/env yeast` not failed in stack overflow due of an infinite loop of self calls.
 - [ ] Fix rules for inlining shell commands in scripts.
