@@ -25,11 +25,11 @@ cargo run basic_example
 ## Roadmap
 
 - [ ] Add bunch of input / output tests scripts.
-- [ ] Create a Makefile to handle `make`, `make test` & `sudo make install` intructions?
+- [x] Create a Makefile to handle `make`, `make test` & `sudo make install` intructions.
 - [ ] Validate builds using Travis CI.
 - [ ] Read input file line by line using a Buffer.
 - [ ] Use [clap.rs](https://github.com/kbknapp/clap-rs) to enhance command line interactions?
-- [ ] Let the use of `#! /usr/bin/env yeast` not failed in stack overflow due of an infinite loop of self calls.
+- [x] Let the use of `#! /usr/bin/env yeast` not failed in stack overflow due of an infinite loop of self calls.
 - [ ] Fix rules for inlining shell commands in scripts.
 - [ ] Provide true multithreading by get ride of the waiting lock of shell command output!
 - [ ] Write a beautiful and comprehensive `man` page.
