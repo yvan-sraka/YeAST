@@ -30,7 +30,7 @@ cargo run basic_example
 - [x] Read input file line by line using a Buffer.
 - [ ] Use [clap.rs](https://github.com/kbknapp/clap-rs) to enhance command line interactions?
 - [x] Let the use of `#! /usr/bin/env yeast` not failed in stack overflow due of an infinite loop of self calls.
-- [ ] Fix rules for inlining shell commands in scripts.
+- [x] Fix rules for inlining shell commands in scripts.
 - [ ] Provide true multithreading by get ride of the waiting lock of shell command output!
 - [ ] Write a beautiful and comprehensive `man` page.
 - [ ] Create an install script and packages for most of UNIX distributions.

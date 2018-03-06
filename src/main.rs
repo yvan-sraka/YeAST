@@ -35,24 +35,32 @@ fn rec(reader: &mut BufRead) -> String {
             .expect("Error: couldn't read the file");
         if len == 0 { break }
         if line.contains("#!") {
+            let r = rec(reader);
+            let input = if r.contains("!#") {
+                String::from(&r[..r.find("!#").unwrap()])
+            } else {
+                String::from(&r[..])
+            };
             let cin = pipe(&uuid());
             let cout = cin.clone();
-            let input = rec(reader);
             let writer = thread::spawn(move || {
                 let mut file = OpenOptions::new().write(true).open(cin)
                     .expect("Error: couldn't open the file");
                 file.write_all(input.as_bytes())
                     .expect("Error: couldn't write the file");
             });
-            let cursor = line.find("#!").unwrap();
-            let cmd = String::from(&line[cursor + 2..line.trim_right().len()]);
+            let begin = line.find("#!").unwrap();
+            let cmd = String::from(&line[begin + 2..line.trim_right().len()]);
             let reader = thread::spawn(move || -> String {
                 exec(&cmd, &cout)
             });
             writer.join().expect("Error: couldn't join thread");
-            line = String::from(&line[..cursor]) + &reader.join().unwrap();
+            line = String::from(&line[..begin]) + &reader.join().unwrap();
+            if r.contains("!#") {
+                line += &r[r.find("!#").unwrap() + 2..];
+            }
         } else if line.contains("!#") {
-            return String::from(&line[..line.find("!#").unwrap()]);
+            return line;
         }
     }
     return line;
@@ -64,5 +72,10 @@ fn main() {
     let file = File::open(filename)
         .expect("Error: couldn't open the file");
     let mut reader = BufReader::new(file);
-    print!("{}", rec(&mut reader));
+    let r = rec(&mut reader);
+    print!("{}", if r.contains("!#") {
+        &r[..r.find("!#").unwrap()]
+    } else {
+        &r[..]
+    });
 }
