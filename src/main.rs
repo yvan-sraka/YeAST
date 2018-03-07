@@ -15,17 +15,24 @@ fn uuid() -> String {
 }
 
 fn pipe(uuid: &str) -> String {
-    let path = format!("/tmp/yeast_{}", uuid);
+    let path = format!("/tmp/yeast/pipes/{}", uuid);
     let filename = CString::new(path.clone()).unwrap();
     unsafe { libc::mkfifo(filename.as_ptr(), 0o644); }
     return path;
 }
 
 fn exec(bin: &str, cin: &str) -> String {
-    let cmd = format!("{} {}", bin, cin);
+    let cmd = format!("export PATH=$PATH:~/.yeast/aliases/; {} {}", bin, cin);
     let output = Command::new("sh").args(&["-c", &cmd]).output()
         .expect("Error: failed to execute process");
-    format!("{}", String::from_utf8_lossy(&output.stdout))
+    if output.status.success() {
+        format!("{}", String::from_utf8_lossy(&output.stdout))
+    } else {
+        println!("status: {}", output.status);
+        println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
+        println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
+        exec("cat", cin)
+    }
 }
 
 fn rec(reader: &mut BufRead) -> String {
