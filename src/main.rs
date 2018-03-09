@@ -35,42 +35,45 @@ fn exec(bin: &str, cin: &str) -> String {
     }
 }
 
+fn thread(input: String, cmd: String) -> String {
+    let cin = pipe(&uuid());
+    let cout = cin.clone();
+    let writer = thread::spawn(move || {
+        let mut file = OpenOptions::new().write(true).open(cin)
+            .expect("Error: couldn't open the file");
+        file.write_all(input.as_bytes())
+            .expect("Error: couldn't write the file");
+    });
+    let reader = thread::spawn(move || -> String {
+        exec(&cmd, &cout)
+    });
+    writer.join().expect("Error: couldn't join thread");
+    reader.join().unwrap()
+}
+
+fn split(s: &str, b: &str) -> (String, String) {
+    if s.contains(b) {
+        (String::from(&s[..s.find(b).unwrap()]),
+         String::from(&s[s.find(b).unwrap() + b.len()..]))
+    } else {
+        (String::from(&s[..]), String::from(""))
+    }
+}
+
 fn rec(reader: &mut BufRead) -> String {
     let mut line = String::new();
     loop {
         let len = reader.read_line(&mut line)
             .expect("Error: couldn't read the file");
-        if len == 0 { break }
         if line.contains("#!") {
-            let r = rec(reader);
-            let input = if r.contains("!#") {
-                String::from(&r[..r.find("!#").unwrap()])
-            } else {
-                String::from(&r[..])
-            };
-            let cin = pipe(&uuid());
-            let cout = cin.clone();
-            let writer = thread::spawn(move || {
-                let mut file = OpenOptions::new().write(true).open(cin)
-                    .expect("Error: couldn't open the file");
-                file.write_all(input.as_bytes())
-                    .expect("Error: couldn't write the file");
-            });
-            let begin = line.find("#!").unwrap();
-            let cmd = String::from(&line[begin + 2..line.trim_right().len()]);
-            let reader = thread::spawn(move || -> String {
-                exec(&cmd, &cout)
-            });
-            writer.join().expect("Error: couldn't join thread");
-            line = String::from(&line[..begin]) + &reader.join().unwrap();
-            if r.contains("!#") {
-                line += &r[r.find("!#").unwrap() + 2..];
-            }
-        } else if line.contains("!#") {
+            let begin = split(&line, "#!");
+            let end = split(&rec(reader), "!#");
+            let cmd = String::from(&begin.1[..begin.1.trim_right().len()]);
+            line = begin.0 + &thread(end.0, cmd) + &end.1;
+        } else if line.contains("!#") || len == 0 {
             return line;
         }
     }
-    return line;
 }
 
 fn main() {
@@ -79,10 +82,5 @@ fn main() {
     let file = File::open(filename)
         .expect("Error: couldn't open the file");
     let mut reader = BufReader::new(file);
-    let r = rec(&mut reader);
-    print!("{}", if r.contains("!#") {
-        &r[..r.find("!#").unwrap()]
-    } else {
-        &r[..]
-    });
+    print!("{}", split(&rec(&mut reader), "!#").0);
 }
