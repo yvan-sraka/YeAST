@@ -32,7 +32,7 @@ cargo run basic_example
 - [ ] Handle scripts errors correctly and display a `BACKTRACE` in `--debug` mode
 - [x] Let the use of `#! /usr/bin/env yeast` not failed in stack overflow due of an infinite loop of self calls.
 - [x] Fix rules for inlining shell commands in scripts.
-- [ ] Let user write multiline commands as he did in an interactive shell.
+- [x] Let user write multiline commands as he did in an interactive shell.
 - [ ] Add bunch of input / output tests scripts.
 - [ ] Provide true multithreading by get ride of the waiting lock of shell command output!
 - [ ] Write a beautiful and comprehensive `man` page.

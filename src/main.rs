@@ -18,12 +18,12 @@ fn pipe(uuid: &str) -> String {
     let path = format!("/tmp/yeast/pipes/{}", uuid);
     let filename = CString::new(path.clone()).unwrap();
     unsafe { libc::mkfifo(filename.as_ptr(), 0o644); }
-    return path;
+    path
 }
 
-fn exec(bin: &str, cin: &str) -> String {
-    let cmd = format!("export PATH=$PATH:~/.yeast/aliases/; {} {}", bin, cin);
-    let output = Command::new("sh").args(&["-c", &cmd]).output()
+fn exec(cmd: &str, cin: &str) -> String {
+    let sh = format!("export PATH=$PATH:~/.yeast/aliases/; {} {}", cmd, cin);
+    let output = Command::new("sh").args(&["-c", &sh]).output()
         .expect("Error: failed to execute process");
     if output.status.success() {
         format!("{}", String::from_utf8_lossy(&output.stdout))
@@ -35,7 +35,7 @@ fn exec(bin: &str, cin: &str) -> String {
     }
 }
 
-fn thread(input: String, cmd: String) -> String {
+fn thread(cmd: String, input: String) -> String {
     let cin = pipe(&uuid());
     let cout = cin.clone();
     let writer = thread::spawn(move || {
@@ -56,31 +56,43 @@ fn split(s: &str, b: &str) -> (String, String) {
         (String::from(&s[..s.find(b).unwrap()]),
          String::from(&s[s.find(b).unwrap() + b.len()..]))
     } else {
-        (String::from(&s[..]), String::from(""))
+        (String::from(&s[..]), String::new())
     }
 }
 
-fn rec(reader: &mut BufRead) -> String {
-    let mut line = String::new();
-    loop {
-        let len = reader.read_line(&mut line)
+fn readline(reader: &mut BufRead, line: &str) -> String {
+    let p = line.trim_right().len();
+    let cmd = String::from(&line[..p]);
+    if &cmd[p - 1..p] == "\\" {
+        let mut line = String::new();
+        reader.read_line(&mut line)
             .expect("Error: couldn't read the file");
-        if line.contains("#!") {
-            let begin = split(&line, "#!");
-            let end = split(&rec(reader), "!#");
-            let cmd = String::from(&begin.1[..begin.1.trim_right().len()]);
-            line = begin.0 + &thread(end.0, cmd) + &end.1;
-        } else if line.contains("!#") || len == 0 {
-            return line;
+        String::new() + &cmd[..p - 1] + &readline(reader, &line)
+    } else {
+        cmd
+    }
+}
+
+fn yeast(reader: &mut BufRead) -> String {
+    let mut buffer = String::new();
+    loop {
+        let len = reader.read_line(&mut buffer)
+            .expect("Error: couldn't read the file");
+        if buffer.contains("#!") {
+            let begin = split(&buffer, "#!");
+            let cmd = readline(reader, &begin.1);
+            let end = split(&yeast(reader), "!#");
+            buffer = begin.0 + &thread(cmd, end.0) + &end.1;
+        } else if buffer.contains("!#") || len == 0 {
+            return buffer;
         }
     }
 }
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let filename = &args[1];
-    let file = File::open(filename)
+    let file = File::open(&args[1])
         .expect("Error: couldn't open the file");
     let mut reader = BufReader::new(file);
-    print!("{}", split(&rec(&mut reader), "!#").0);
+    print!("{}", split(&yeast(&mut reader), "!#").0);
 }
