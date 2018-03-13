@@ -5,4 +5,3 @@ authors = ["Yvan Sraka <yvan.sraka@gmail.com>"]
 
 [dependencies]
 libc = "0.2.37"
-rand = "0.4.2"
