@@ -34,7 +34,7 @@ cargo run basic_example
 - [x] Fix rules for inlining shell commands in scripts.
 - [x] Let user write multiline commands as he did in an interactive shell.
 - [x] Add bunch of input / output tests scripts.
-- [ ] Provide true multithreading by get ride of the waiting lock of shell command output!
+- [x] Provide true multithreading by get ride of the waiting lock of shell command output!
 - [ ] Write a beautiful and comprehensive `man` page.
 - [ ] Create an install script and packages for most of UNIX distributions.
 - [ ] Host a beautiful landing page on the `gh-page` branch of this repository.

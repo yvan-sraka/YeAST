@@ -1,11 +1,14 @@
 extern crate libc;
+extern crate rand;
+use rand::Rng;
 use std::io::prelude::*;
 
 fn exec(cmd: String, input: String) -> String {
     // Create a named pipe using libc (see man 2 mkfifo)
     std::fs::create_dir_all("/tmp/yeast/")
         .expect("Error: couldn't create the /tmp/yeast/ folder");
-    let path = format!("/tmp/yeast/named_pipe");
+    let uuid: String = rand::thread_rng().gen_ascii_chars().take(32).collect();
+    let path = format!("/tmp/yeast/{}", uuid);
     let filename = std::ffi::CString::new(path.clone()).unwrap();
     unsafe { libc::mkfifo(filename.as_ptr(), 0o644); }
     // Read and write on the same unique named pipe in different threads
@@ -17,16 +20,14 @@ fn exec(cmd: String, input: String) -> String {
         file.write_all(input.as_bytes())
             .expect("Error: couldn't write the named pipe");
     }); // This thread don't need to be join
-    std::thread::spawn(move || -> String { // Reader thread
-        let sh = format!("export PATH=$PATH:~/.yeast/aliases/;{} {}", cmd, cin);
-        let output = std::process::Command::new("sh").args(&["-c", &sh])
-            .output().expect("Error: failed to execute process");
-        if output.status.success() {
-            format!("{}", String::from_utf8_lossy(&output.stdout))
-        } else { // Panic on command error
-            panic!("Error: {}", String::from_utf8_lossy(&output.stderr))
-        }
-    }).join().unwrap() // Retreive output of shell command
+    let sh = format!("export PATH=$PATH:~/.yeast/; {} {}", cmd, cin);
+    let output = std::process::Command::new("sh").args(&["-c", &sh])
+        .output().expect("Error: failed to execute process");
+    if output.status.success() { // Retreive output of shell command
+        format!("{}", String::from_utf8_lossy(&output.stdout))
+    } else { // Panic on command error
+        panic!("Error: {}", String::from_utf8_lossy(&output.stderr))
+    }
 }
 
 fn readline(reader: &mut BufRead, line: &str) -> String {
@@ -52,6 +53,7 @@ fn split2(s: &str, b: &str) -> (String, String) {
 
 fn yeast(reader: &mut BufRead) -> String {
     let mut buffer = String::new();
+    let mut vec = vec![];
     loop { // While there is something in the read buffer
         let len = reader.read_line(&mut buffer)
             .expect("Error: couldn't read the input file");
@@ -59,16 +61,23 @@ fn yeast(reader: &mut BufRead) -> String {
             let begin = split2(&buffer, "#!");
             let cmd = readline(reader, &begin.1);
             let end = split2(&yeast(reader), "!#");
-            buffer = begin.0 + &exec(cmd, end.0) + &end.1;
-        } else if buffer.contains("!#") || len == 0 {
-            return buffer; // End of a bloc / the file
+            buffer = end.clone().1;
+            vec.push(std::thread::spawn(move || -> String {
+                begin.0 + &exec(cmd, end.0) // Launch command process
+            }));
+        } else if buffer.contains("!#") || len == 0 { // End of a bloc / file
+            let mut outputs = String::new();
+            for child in vec { // Join all child threads
+                outputs += &child.join().unwrap();
+            }
+            return outputs + &buffer;
         }
     }
 }
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    let file = std::fs::File::open(&args[1])
+    let file = std::fs::File::open(std::path::Path::new(&args[1]))
         .expect("Error: couldn't open the input file");
     let mut reader = std::io::BufReader::new(file);
     print!("{}", split2(&yeast(&mut reader), "!#").0);

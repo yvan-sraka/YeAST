@@ -5,14 +5,16 @@ time.sleep(2)
 
 print("First")
 
-!##! python
+!#
+#! python
 
 import time
 time.sleep(1)
 
 print("Second")
 
-!##! python
+!#
+#! python
 
 import time
 time.sleep(3)
