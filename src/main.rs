@@ -20,7 +20,12 @@ fn exec(cmd: String, input: String) -> String {
         file.write_all(input.as_bytes())
             .expect("Error: couldn't write the named pipe");
     }); // This thread don't need to be join
-    let sh = format!("export PATH=$PATH:~/.yeast/; {} {}", cmd, cin);
+    let cmd = if cmd.contains("$0") {
+        str::replace(&cmd, "$0", &cin)
+    } else { // Handle `$0` as the path of the named path
+        format!("{} {}", cmd, cin)
+    };
+    let sh = format!("export PATH=$PATH:~/.yeast/; {}", cmd);
     let output = std::process::Command::new("sh").args(&["-c", &sh])
         .output().expect("Error: failed to execute process");
     if output.status.success() { // Retreive output of shell command
@@ -30,16 +35,19 @@ fn exec(cmd: String, input: String) -> String {
     }
 }
 
-fn readline(reader: &mut BufRead, line: &str) -> String {
+fn readline(reader: &mut BufRead, line: &str, args: &Vec<String>) -> String {
     let p = line.trim_right().len(); // Position of '\n' in string
     if p == 0 { panic!("Error: you have to write a shell command next to #!"); }
     let cmd = String::from(&line[..p]);
-    if &cmd[p - 1..] == "\\" { // if line is ended by '\' character
+    let mut c = if &cmd[p - 1..] == "\\" { // if line is ended by '\' character
         let mut line = String::new();
         reader.read_line(&mut line)
             .expect("Error: couldn't read the input file");
-        String::new() + &cmd[..p - 1] + &readline(reader, &line)
-    } else { cmd } // Return inlined command
+        String::from(&cmd[..p - 1]) + &readline(reader, &line, &args)
+    } else { cmd }; // Return inlined command
+    for i in 2..args.len() {
+        c = str::replace(&c, &format!("${}", i - 1), &args[i]);
+    } c // Allow sub-scripts to read command line arguments
 }
 
 fn split2(s: &str, b: &str) -> (String, String) {
@@ -51,7 +59,7 @@ fn split2(s: &str, b: &str) -> (String, String) {
     }
 }
 
-fn yeast(reader: &mut BufRead) -> String {
+fn yeast(reader: &mut BufRead, args: &Vec<String>) -> String {
     let mut buffer = String::new();
     let mut vec = vec![];
     loop { // While there is something in the read buffer
@@ -59,8 +67,8 @@ fn yeast(reader: &mut BufRead) -> String {
             .expect("Error: couldn't read the input file");
         if buffer.contains("#!") { // Start of a bloc
             let begin = split2(&buffer, "#!");
-            let cmd = readline(reader, &begin.1);
-            let end = split2(&yeast(reader), "!#");
+            let cmd = readline(reader, &begin.1, &args);
+            let end = split2(&yeast(reader, &args), "!#");
             buffer = end.clone().1;
             vec.push(std::thread::spawn(move || -> String {
                 begin.0 + &exec(cmd, end.0) // Launch command process
@@ -78,7 +86,7 @@ fn yeast(reader: &mut BufRead) -> String {
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     let file = std::fs::File::open(std::path::Path::new(&args[1]))
-        .expect("Error: couldn't open the input file");
+        .expect(&format!("Error: couldn't open: {}", &args[1]));
     let mut reader = std::io::BufReader::new(file);
-    print!("{}", split2(&yeast(&mut reader), "!#").0);
+    print!("{}", split2(&yeast(&mut reader, &args), "!#").0);
 }

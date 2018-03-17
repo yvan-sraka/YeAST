@@ -28,7 +28,7 @@ cargo run basic_example
 - [x] Validate builds using Travis CI.
 - [x] Read input file line by line using a Buffer.
 - [ ] Use [clap.rs](https://github.com/kbknapp/clap-rs) to enhance command line interactions?
-- [ ] Allow sub-scripts to read command line arguments.
+- [x] Allow sub-scripts to read command line arguments, using `$0`, `$1`, etc ...
 - [ ] Handle scripts errors correctly and display a `BACKTRACE` in `--debug` mode
 - [x] Let the use of `#! /usr/bin/env yeast` not failed in stack overflow due of an infinite loop of self calls.
 - [x] Fix rules for inlining shell commands in scripts.
