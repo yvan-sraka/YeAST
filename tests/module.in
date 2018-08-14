@@ -1,0 +1,5 @@
+#! /usr/bin/env yeast
+#! @rustc
+fn main() {
+    println!("Hello World!");
+}

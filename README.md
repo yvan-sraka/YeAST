@@ -41,7 +41,7 @@ cargo run basic_example
 - [ ] Add Windows support (use `cmd` instead of `sh` and [Windows named pipes](https://msdn.microsoft.com/en-us/library/windows/desktop/aa365590(v=vs.85).aspx) instead of `mkfifo`).
 - [ ] Create a small lib in each language to uniform the use a named pipes in sharing serialized data between process.
 - [x] Provide a collection of alias by adding a special environment to the `PATH` of command launch by YeAST.
-- [ ] Add a simple script in the path to update aliases by running a `git pull`.
+- [x] Add a simple script in the path to update aliases by running a `git pull`.
 - [ ] Re-write YeAST `Makefile` and other scripts using YeAST!
 - [ ] Provide plugins for syntaxic coloration in commons editors.
 

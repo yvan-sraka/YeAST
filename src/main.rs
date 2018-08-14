@@ -25,7 +25,7 @@ fn exec(cmd: String, input: String) -> String {
     } else { // Handle `$0` as the path of the named path
         format!("{} {}", cmd, cin)
     };
-    let sh = format!("export PATH=$PATH:~/.yeast/; {}", cmd);
+    let sh = format!("export PATH=$PATH:~/.kombucha/; {}", cmd);
     let output = std::process::Command::new("sh").args(&["-c", &sh])
         .output().expect("Error: failed to execute process");
     if output.status.success() { // Retreive output of shell command
