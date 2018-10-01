@@ -55,7 +55,7 @@ cargo run basic_example
 - [ ] Create an install script and packages for most of UNIX distributions.
 - [ ] Host a beautiful landing page on the `gh-page` branch of this repository.
 - [ ] Add Windows support (use `cmd` instead of `sh` and [Windows named pipes](https://msdn.microsoft.com/en-us/library/windows/desktop/aa365590(v=vs.85).aspx) instead of `mkfifo`).
-- [ ] Create a small lib in each language to uniform the use a named pipes in sharing serialized data between process.
+- [x] Create a small lib in each language to uniform the use a named pipes in sharing serialized data between process.
 - [x] Provide a collection of alias by adding a special environment to the `PATH` of command launch by YeAST.
 - [x] Add a simple script in the path to update aliases by running a `git pull`.
 - [ ] Re-write YeAST `Makefile` and other scripts using YeAST!
