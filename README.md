@@ -1,6 +1,17 @@
 # YeAST [![Build Status](https://travis-ci.org/yvan-sraka/YeAST.svg?branch=master)](https://travis-ci.org/yvan-sraka/YeAST)
 
-Yet Another Shell Trick
+_Yet Another Shell Trick_
+
+## What's that?
+
+YeAST is an extension of the bourne shell [shebang syntax](https://en.wikipedia.org/wiki/Shebang_(Unix)).
+
+YeAST aims to solve issues of interoperability, parrallel programming, quick prototyping and progressive refactoring by incitate users to use in their scripts and software features of UNIX system and build things more [KISS](https://en.wikipedia.org/wiki/KISS_principle).
+
+You can read more about it through:
+
+- [a blog post](https://yvan-sraka.github.io/2018/06/13/yeast.html) on my personnal web page
+- [a lightning talk presentation](https://raw.githubusercontent.com/yvan-sraka/yvan-sraka.github.io/master/YeAST.pdf) of the core idea, implementation and real world applications
 
 ## Getting Started
 
