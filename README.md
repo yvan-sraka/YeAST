@@ -33,6 +33,11 @@ cd YeAST
 cargo run basic_example
 ```
 
+## Ecosystem
+
+- [Kombucha](https://github.com/yvan-sraka/Kombucha): simple aliases manager for YeAST
+- [Palombe](https://github.com/yvan-sraka/Palombe): lets you send and receive messages synchronously through different processes
+
 ## Roadmap
 
 - [x] Create a Makefile to handle `make`, `make test` & `sudo make install` intructions.
