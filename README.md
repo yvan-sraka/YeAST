@@ -45,6 +45,8 @@ cargo run basic_example
 - [x] Read input file line by line using a Buffer.
 - [ ] Use [clap.rs](https://github.com/kbknapp/clap-rs) to enhance command line interactions?
 - [x] Allow sub-scripts to read command line arguments, using `$0`, `$1`, etc ...
+- [ ] ... and `$...` for all input args ;
+- [ ] ... and `$@` for parent bloc cmd!
 - [ ] Handle scripts errors correctly and display a `BACKTRACE` in `--debug` mode
 - [x] Let the use of `#! /usr/bin/env yeast` not failed in stack overflow due of an infinite loop of self calls.
 - [x] Fix rules for inlining shell commands in scripts.
@@ -58,8 +60,9 @@ cargo run basic_example
 - [x] Create a small lib in each language to uniform the use a named pipes in sharing serialized data between process.
 - [x] Provide a collection of alias by adding a special environment to the `PATH` of command launch by YeAST.
 - [x] Add a simple script in the path to update aliases by running a `git pull`.
-- [ ] Re-write YeAST `Makefile` and other scripts using YeAST!
 - [ ] Provide plugins for syntaxic coloration in commons editors.
+- [ ] Add option to let user set top level interpreter, e.g.: `-i="/usr/bin/env python"`
+- [ ] Add option to let user set redefine block symbol, e.g.: `-s="///!//"`
 
 ## Contributing
 
