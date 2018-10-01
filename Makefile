@@ -1,9 +1,14 @@
-all:
+all: target/release/yeast
+
+target/release/yeast:
 	cargo build --release
 
-install:
+install: target/release/yeast
 	cp target/release/yeast /usr/local/bin/
 	cp kombucha /usr/local/bin/
+
+clean:
+	cargo clean
 
 test:
 	RUST_BACKTRACE=1 cargo run tests/lorem_ipsum.in > debug.log && cmp debug.log tests/lorem_ipsum.out
