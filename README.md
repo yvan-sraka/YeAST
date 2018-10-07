@@ -47,7 +47,7 @@ cargo run basic_example
 - [x] Allow sub-scripts to read command line arguments, using `$0`, `$1`, etc ...
 - [ ] ... and `$...` for all input args ;
 - [ ] ... and `$@` for parent bloc cmd!
-- [ ] Handle scripts errors correctly and display a `BACKTRACE` in `--debug` mode
+- [x] Handle scripts errors correctly and display a `BACKTRACE` in `=1|full` mode
 - [x] Let the use of `#! /usr/bin/env yeast` not failed in stack overflow due of an infinite loop of self calls.
 - [x] Fix rules for inlining shell commands in scripts.
 - [x] Let user write multiline commands as he did in an interactive shell.
