@@ -13,6 +13,18 @@ You can read more about it through:
 - [a blog post](https://yvan-sraka.github.io/2018/06/13/yeast.html) on my personnal web page
 - [a lightning talk presentation](https://raw.githubusercontent.com/yvan-sraka/yvan-sraka.github.io/master/YeAST.pdf) of the core idea, implementation and real world applications
 
+## Quick Running
+
+Run the following line in your terminal, then follow the onscreen instructions:
+
+```shell
+curl https://raw.githubusercontent.com/yvan-sraka/YeAST/master/install.sh -sSf | sh
+```
+
+> If you wonder what this previous command do, don't hesistate to inspect the script: it's run all instructions of the **Getting Started** section.
+
+**You now have YeAST installed on your machine!** Cool next thing to do could be to get the [VSCode syntax support extension](https://marketplace.visualstudio.com/items?itemName=yvan-sraka.yeast).
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -54,13 +66,14 @@ cargo run basic_example
 - [x] Add bunch of input / output tests scripts.
 - [x] Provide true multithreading by get ride of the waiting lock of shell command output!
 - [ ] Write a beautiful and comprehensive `man` page.
-- [ ] Create an install script and packages for most of UNIX distributions.
+- [x] Create an install script for handling one-instruction installation.
+- [ ] Create packages for most of UNIX distributions.
 - [ ] Host a beautiful landing page on the `gh-page` branch of this repository.
 - [ ] Add Windows support (use `cmd` instead of `sh` and [Windows named pipes](https://msdn.microsoft.com/en-us/library/windows/desktop/aa365590(v=vs.85).aspx) instead of `mkfifo`).
 - [x] Create a small lib in each language to uniform the use a named pipes in sharing serialized data between process.
 - [x] Provide a collection of alias by adding a special environment to the `PATH` of command launch by YeAST.
 - [x] Add a simple script in the path to update aliases by running a `git pull`.
-- [ ] Provide plugins for syntaxic coloration in commons editors.
+- [x] Provide plugins for syntaxic coloration in VSCode.
 - [ ] Add option to let user set top level interpreter, e.g.: `-i="/usr/bin/env python"`
 - [ ] Add option to let user set redefine block symbol, e.g.: `-s="///!//"`
 
