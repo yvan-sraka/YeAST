@@ -15,15 +15,33 @@ You can read more about it through:
 
 ## Quick Running
 
+These instructions will get you the last stable binaries of yeast on your local machine for standard usage purposes.
+
+### Binaries installation
+
+#### ..on macOS using `brew`:
+
+You can install YeAST on macOS using our [Homebrew](https://brew.sh/) custom Tap:
+
+```shell
+brew install yvan-sraka/YeAST/yeast
+```
+
+#### ..on others UNIX-like using the install script:
+
 Run the following line in your terminal, then follow the onscreen instructions:
 
 ```shell
 curl https://raw.githubusercontent.com/yvan-sraka/YeAST/master/install.sh -sSf | sh
 ```
 
-> If you wonder what this previous command do, don't hesistate to inspect the script: it's run all instructions of the **Getting Started** section.
+> If you wonder what this previous command do, don't hesitate to inspect the script: it's run all instructions of the **Getting Started** section.
 
-**You now have YeAST installed on your machine!** Cool next thing to do could be to get the [VSCode syntax support extension](https://marketplace.visualstudio.com/items?itemName=yvan-sraka.yeast).
+### Editors integration
+
+You now have YeAST installed on your machine! Cool next thing to do could be to get a syntax support extension for your favorite code editor:
+
+- [VisualStudio Code](https://marketplace.visualstudio.com/items?itemName=yvan-sraka.yeast)
 
 ## Getting Started
 
