@@ -101,7 +101,8 @@ Please read [CONTRIBUTING.md](https://github.com/yvan-sraka/YeAST/blob/master/CO
 
 ## Authors
 
-* [Yvan Sraka](https://github.com/yvan-sraka)
+* [Yvan Sraka](https://github.com/yvan-sraka) - for the original idea
+* [Mattia Primavera](https://github.com/MattiaPrimavera/) - who provide constant positive feedback and was the very first beta-tester
 
 See also the list of [contributors](https://github.com/yvan-sraka/YeAST/graphs/contributors) who participated in this project.
 
