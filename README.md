@@ -73,7 +73,7 @@ cargo run basic_example
 - [x] Create a Makefile to handle `make`, `make test` & `sudo make install` intructions.
 - [x] Validate builds using Travis CI.
 - [x] Read input file line by line using a Buffer.
-- [ ] Use [clap.rs](https://github.com/kbknapp/clap-rs) to enhance command line interactions?
+- [x] Use [clap.rs](https://github.com/kbknapp/clap-rs) to enhance command line interactions.
 - [x] Allow sub-scripts to read command line arguments, using `$0`, `$1`, etc ...
 - [ ] ... and `$...` for all input args ;
 - [ ] ... and `$@` for parent bloc cmd!

@@ -1,6 +1,8 @@
 extern crate libc;
 extern crate rand;
 use rand::Rng;
+extern crate clap;
+use clap::{Arg, App, AppSettings};
 use std::io::prelude::*;
 
 fn err(msg: &str) -> String { format!("\n\n\x1b[31merror:\x1b[0m {}\n", msg) }
@@ -90,6 +92,16 @@ fn yeast(reader: &mut BufRead, args: &Vec<String>) -> String {
 }
 
 fn main() {
+    App::new("YeAST")
+        .version("0.12.0")
+        .author("Yvan SRAKA <yvan@sraka.pw>")
+        .about("Yet Another Shell Trick")
+        .setting(AppSettings::TrailingVarArg)
+        .arg(Arg::with_name("INPUT")
+            .help("Sets the input file to use")
+            .required(true)
+            .multiple(true))
+        .get_matches();
     let args: Vec<String> = std::env::args().collect();
     let file = std::fs::File::open(std::path::Path::new(&args[1]))
         .expect(&err(&format!("couldn't open: {}", &args[1])));
