@@ -37,6 +37,23 @@ curl https://raw.githubusercontent.com/yvan-sraka/YeAST/master/install.sh -sSf |
 
 > If you wonder what this previous command do, don't hesitate to inspect the script: it's run all instructions of the **Getting Started** section.
 
+### Bootstraping
+
+To make scripts easily work out of the box, you can add this little hack at the beggining of your files:
+
+```shell
+#! /bin/sh
+#! @ignore
+if ! [ -x "$(command -v yeast)" ]; then
+  curl "https://raw.githubusercontent.com/yvan-sraka/YeAST/master/install.sh" -sSf | sh
+fi
+yeast "$0"
+exit
+# !# !#
+
+# PUT YOUR CODE HERE
+```
+
 ### Editors integration
 
 You now have YeAST installed on your machine! Cool next thing to do could be to get a syntax support extension for your favorite code editor:
