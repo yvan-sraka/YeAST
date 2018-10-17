@@ -6,7 +6,7 @@ _Yet Another Shell Trick_
 
 YeAST is an extension of the bourne shell [shebang syntax](https://en.wikipedia.org/wiki/Shebang_(Unix)).
 
-YeAST aims to solve issues of interoperability, parrallel programming, quick prototyping and progressive refactoring by incitate users to use in their scripts and software features of UNIX system and build things more [KISS](https://en.wikipedia.org/wiki/KISS_principle).
+YeAST aims to solve issues of interoperability, parallel programming, quick prototyping and progressive refactoring by incitate users to use in their scripts and software features of UNIX system and build things more [KISS](https://en.wikipedia.org/wiki/KISS_principle).
 
 You can read more about it through:
 
@@ -35,7 +35,7 @@ Run the following line in your terminal, then follow the onscreen instructions:
 curl https://raw.githubusercontent.com/yvan-sraka/YeAST/master/install.sh -sSf | sh
 ```
 
-> If you wonder what this previous command do, don't hesitate to inspect the script: it's run all instructions of the **Getting Started** section.
+> If you wonder what this previous command do, don't hesitate to inspect the script: it runs all instructions of the **Getting Started** section.
 
 ### Bootstraping
 
@@ -77,13 +77,73 @@ curl https://sh.rustup.rs -sSf | sh
 ```shell
 git clone git@github.com:yvan-sraka/YeAST.git
 cd YeAST
-cargo run basic_example
+cargo run basic_example.yst
 ```
 
 ## Ecosystem
 
-- [Kombucha](https://github.com/yvan-sraka/Kombucha): simple aliases manager for YeAST
-- [Palombe](https://github.com/yvan-sraka/Palombe): lets you send and receive messages synchronously through different processes
+- [Kombucha](https://github.com/yvan-sraka/Kombucha): a simple aliases manager for YeAST
+- [Palombe](https://github.com/yvan-sraka/Palombe): which lets you send and receive messages synchronously through different processes
+
+## Real World Examples
+
+The [basic_example](https://github.com/yvan-sraka/YeAST/blob/master/basic_example.yst) available in this repository is fun to get the general idea behind YeAST! But to really understand the purpose of this tool, we will go through examples inspired from _REAL WORLD_, mainly by my scientific domain: "Bioinformatics and Modeling".
+
+### YeAST works like `cat` outside interpreters
+
+```yeast
+#! /usr/bin/env yeast
+
+This text will be printed on standard output!
+
+Beside we experiment with a Python code we expect to say "Hello World":
+
+#! python3
+print("Hello, World!")
+#!
+
+Enjoy this nice way of writing code in notebook style.
+```
+
+### It provides multithreading by default
+
+```yeast
+#! /usr/bin/env yeast
+
+Here we try to fold 3 different sequences, so we do it in parallel by
+allocating 3 threads, there is no additonal syntax needed:
+
+#! python3 folding.py
+;LCBO - Prolactin precursor - Bovine
+; a sample sequence in FASTA format
+MDSKGSSQKGSRLLLLLVVSNLLLCQGVVSTPVCPNGPGNCQVSLRDLFDRAVMVSHYIHDLSS
+EMFNEFDKRYAQGKGFITMALNSCHTSSLPTPEDKEQAQQTHHEVLMSLILGLLRSWNDPLYHL
+VTEVRGMKGAPDAILSRAIEIEEENKRLLEGMEMIFGQVIPGAKETEPYPVWSGLPSLQTKDED
+ARYSAFYNLLHCLRRDSSKIDTYLKLLNCRIIYNNNC*
+!#
+
+Shebang in YeAST could be any shell command that's accepting as last argument a
+given file, here we use the syntax to call our external script `folding.py`.
+
+#! python3 folding.py
+>MCHU - Calmodulin - Human, rabbit, bovine, rat, and chicken
+ADQLTEEQIAEFKEAFSLFDKDGDGTITTKELGTVMRSLGQNPTEAELQDMINEVDADGNGTID
+FPEFLTMMARKMKDTDSEEEIREAFRVFDKDGNGYISAAELRHVMTNLGEKLTDEEVDEMIREA
+DIDGDGQVNYEEFVQMMTAK*
+!#
+
+Bonus: the output of this multhreading computation will be displayed the in right
+order as soon that the information is available!
+
+#! python3 folding.py
+>gi|5524211|gb|AAD44166.1| cytochrome b [Elephas maximus maximus]
+LCLYTHIGRNIYYGSYLYSETWNTGIMLLLITMATAFMGYVLPWGQMSFWGATVITNLFSAIPYIGTNLV
+EWIWGGFSVDKATLNRFFAFHFILPFTMVALAGVHLTFLHETGSNNPLGLTSDSDKIPFHPYYTIKDFLG
+LLILILLLLLLALLSPDMLGDPDNHMPADPLNTPLHIKPEWYFLFAYAILRSVPNKLGGVLALFLSIVIL
+GLMPFLHTSKHRSMMLRPLSQALFWTLTMDLLTLTWIGSQPVEYPYTIIGQMASILYFSIILAFLPIAGX
+IENY
+!#
+```
 
 ## Roadmap
 
