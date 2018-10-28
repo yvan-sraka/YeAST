@@ -14,7 +14,7 @@ fn exec(cmd: String, input: String) -> String {
     let uuid: String = rand::thread_rng().gen_ascii_chars().take(64).collect();
     let path = format!("/tmp/yeast/{}", uuid);
     let filename = std::ffi::CString::new(path.clone()).unwrap();
-    unsafe { libc::mkfifo(filename.as_ptr(), 0o644); }
+    unsafe { libc::mkfifo(filename.as_ptr(), 0o600); }
     // Read and write on the same unique named pipe in different threads
     let cin = path.clone();
     let cout = path.clone();
