@@ -152,8 +152,7 @@ IENY
 - [x] Read input file line by line using a Buffer.
 - [x] Use [clap.rs](https://github.com/kbknapp/clap-rs) to enhance command line interactions.
 - [x] Allow sub-scripts to read command line arguments, using `$0`, `$1`, etc ...
-- [ ] ... and `$...` for all input args ;
-- [ ] ... and `$@` for parent bloc cmd!
+- [x] ... and `$*` for all input args.
 - [x] Handle scripts errors correctly and display a `BACKTRACE` in `=1|full` mode
 - [x] Let the use of `#! /usr/bin/env yeast` not failed in stack overflow due of an infinite loop of self calls.
 - [x] Fix rules for inlining shell commands in scripts.

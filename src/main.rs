@@ -50,6 +50,7 @@ fn readline(reader: &mut BufRead, line: &str, args: &Vec<String>) -> String {
             .expect(&err("couldn't read the input file buffer")); // PANIC
         String::from(&cmd[..p - 1]) + &readline(reader, &line, &args)
     } else { cmd }; // Return inlined command
+    c = str::replace(&c, "$*", &args[2..].join(" "));
     for i in 2..args.len() {
         c = str::replace(&c, &format!("${}", i - 1), &args[i]);
     } c // Allow sub-scripts to read command line arguments
