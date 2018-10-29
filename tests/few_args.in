@@ -1,0 +1,4 @@
+#! python $0 $1 $2 $3
+import sys
+
+print("\n".join(sys.argv[1:]))

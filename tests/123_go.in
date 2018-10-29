@@ -1,7 +1,7 @@
 #! python
 
 import time
-time.sleep(2)
+time.sleep(0.2)
 
 print("First")
 
@@ -9,7 +9,7 @@ print("First")
 #! python
 
 import time
-time.sleep(1)
+time.sleep(0.1)
 
 print("Second")
 
@@ -17,7 +17,7 @@ print("Second")
 #! python
 
 import time
-time.sleep(3)
+time.sleep(0.3)
 
 print("Third")
 
