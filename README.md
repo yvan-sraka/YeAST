@@ -168,8 +168,7 @@ IENY
 - [x] Provide a collection of alias by adding a special environment to the `PATH` of command launch by YeAST.
 - [x] Add a simple script in the path to update aliases by running a `git pull`.
 - [x] Provide plugins for syntaxic coloration in VSCode.
-- [ ] Add option to let user set top level interpreter, e.g.: `-i="/usr/bin/env python"`
-- [ ] Add option to let user set redefine block symbol, e.g.: `-s="///!//"`
+- [x] Let user define a top level interpreter by set `YEAST_CONTEXT` env variable
 
 ## Contributing
 

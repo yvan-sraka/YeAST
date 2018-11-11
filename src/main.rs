@@ -65,16 +65,20 @@ fn split2(s: &str, b: &str) -> (String, String) {
     }
 }
 
-fn yeast(reader: &mut BufRead, args: &Vec<String>) -> String {
+fn yeast(reader: &mut BufRead, args: &Vec<String>,
+         context: std::option::Option<std::ffi::OsString>) -> String {
     let mut buffer = String::new();
     let mut vec = vec![];
+    let mut len = 1; // Allow us to check context on first loop turn
     loop { // While there is something in the read buffer
-        let len = reader.read_line(&mut buffer)
-            .expect(&err("couldn't read the input file buffer")); // PANIC
-        if buffer.contains("#!") { // Start of a bloc
+        if (context.is_some() && len != 0) // YEAST_CONTEXT is defined ...
+            || buffer.contains("#!") { // ... or a bloc start
             let begin = split2(&buffer, "#!");
-            let cmd = readline(reader, &begin.1, &args);
-            let end = split2(&yeast(reader, &args), "!#");
+            let cmd = match context.clone() {
+                Some(x) => x.into_string().unwrap(),
+                None => readline(reader, &begin.1, &args)
+            };
+            let end = split2(&yeast(reader, &args, None), "!#");
             buffer = end.clone().1;
             vec.push(std::thread::Builder::new().name(cmd.clone()).spawn(
                 move || -> String {
@@ -89,12 +93,14 @@ fn yeast(reader: &mut BufRead, args: &Vec<String>) -> String {
             }
             return outputs + &buffer;
         }
+        len = reader.read_line(&mut buffer)
+            .expect(&err("couldn't read the input file buffer")); // PANIC
     }
 }
 
 fn main() {
     App::new("YeAST")
-        .version("0.12.0")
+        .version("0.15.0")
         .author("Yvan SRAKA <yvan@sraka.pw>")
         .about("Yet Another Shell Trick")
         .setting(AppSettings::TrailingVarArg)
@@ -107,5 +113,6 @@ fn main() {
     let file = std::fs::File::open(std::path::Path::new(&args[1]))
         .expect(&err(&format!("couldn't open: {}", &args[1])));
     let mut reader = std::io::BufReader::new(file);
-    print!("{}", split2(&yeast(&mut reader, &args), "!#").0);
+    let context = std::env::var_os("YEAST_CONTEXT");
+    print!("{}", split2(&yeast(&mut reader, &args, context), "!#").0);
 }
