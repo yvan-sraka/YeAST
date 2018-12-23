@@ -84,6 +84,7 @@ cargo run basic_example.yst
 
 - [Kombucha](https://github.com/yvan-sraka/Kombucha): a simple aliases manager for YeAST
 - [Palombe](https://github.com/yvan-sraka/Palombe): which lets you send and receive messages synchronously through different processes
+- [Cleopatra](https://github.com/yvan-sraka/Cleopatra): make YeAST be called in place of your standard interpreter in the current environment
 
 ## Real World Examples
 
@@ -176,8 +177,8 @@ Please read [CONTRIBUTING.md](https://github.com/yvan-sraka/YeAST/blob/master/CO
 
 ## Authors
 
-* [Yvan Sraka](https://github.com/yvan-sraka) - for the original idea
-* [Mattia Primavera](https://github.com/MattiaPrimavera/) - who provide constant positive feedback and was the very first beta-tester
+- [Yvan Sraka](https://github.com/yvan-sraka) - for the original idea
+- [Mattia Primavera](https://github.com/MattiaPrimavera/) - who provide constant positive feedback and was the very first beta-tester
 
 See also the list of [contributors](https://github.com/yvan-sraka/YeAST/graphs/contributors) who participated in this project.
 
