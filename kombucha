@@ -1,8 +1,0 @@
-#! /usr/bin/env yeast
-#! make -sf $0 $1
-
-init:
-	git clone https://github.com/yvan-sraka/Kombucha.git ~/.kombucha
-
-update:
-	cd ~/.kombucha ; git pull -r

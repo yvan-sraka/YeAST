@@ -1,2 +1,5 @@
 #! /bin/sh
-curl https://sh.rustup.rs -sSf | sh
+
+if ! [ -x "$(command -v cargo)" ]; then
+    curl https://sh.rustup.rs -sSf | sh
+fi

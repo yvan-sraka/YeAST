@@ -148,7 +148,7 @@ IENY
 
 ## Roadmap
 
-- [x] Create a Makefile to handle `make`, `make test` & `sudo make install` intructions.
+- [x] Create a Makefile to handle `make`, `make test` & `make install` intructions.
 - [x] Validate builds using Travis CI.
 - [x] Read input file line by line using a Buffer.
 - [x] Use [clap.rs](https://github.com/kbknapp/clap-rs) to enhance command line interactions.

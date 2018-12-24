@@ -4,8 +4,7 @@ target/release/yeast:
 	cargo build --release
 
 install: target/release/yeast
-	cp target/release/yeast /usr/local/bin/
-	cp kombucha /usr/local/bin/
+	cargo install --path .
 
 clean:
 	cargo clean
@@ -35,3 +34,5 @@ test:
 	# Use $* for catching all args
 	cargo run tests/all_args.in foo bar | \
 		  cmp tests/all_args.out
+
+.PHONY: all target/release/yeast install test
