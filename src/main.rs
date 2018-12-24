@@ -65,7 +65,7 @@ fn exec(cmd: &str, input: String) -> String {
 }
 
 fn readline(reader: &mut BufRead, line: &str, args: &[String]) -> String {
-    let p = line.trim_right().len(); // Position of '\n' in string
+    let p = line.trim_end().len(); // Position of '\n' in string
     if p == 0 {
         panic!("{}", err("a shell command should follow #!"));
     }
