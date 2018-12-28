@@ -2,11 +2,12 @@ extern crate libc;
 extern crate rand;
 use rand::Rng;
 extern crate clap;
+use ansi_term::Colour::Red;
 use clap::{App, AppSettings, Arg};
 use std::io::prelude::*;
 
 fn err(msg: &str) -> String {
-    format!("\n\n\x1b[31merror:\x1b[0m {}\n", msg)
+    format!("\n\n{} {}\n", Red.bold().paint("error:"), msg)
 }
 
 fn exec(cmd: &str, input: String) -> String {
