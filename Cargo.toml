@@ -1,6 +1,6 @@
 [package]
 name = "yeast"
-version = "0.19.0"
+version = "0.20.0"
 authors = ["Yvan Sraka <yvan@sraka.pw>"]
 edition = "2018"
 

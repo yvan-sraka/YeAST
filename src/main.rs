@@ -153,7 +153,7 @@ fn yeast(
 
 fn main() -> Result<()> {
     App::new("YeAST")
-        .version("0.15.0")
+        .version("0.20.0")
         .author("Yvan SRAKA <yvan@sraka.pw>")
         .about("Yet Another Shell Trick")
         .setting(AppSettings::TrailingVarArg)
