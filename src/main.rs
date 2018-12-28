@@ -5,6 +5,7 @@ extern crate clap;
 use ansi_term::Colour::Red;
 use clap::{App, AppSettings, Arg};
 use std::io::prelude::*;
+use std::io::Result;
 
 fn err(msg: &str) -> String {
     format!("\n\n{} {}\n", Red.bold().paint("error:"), msg)
@@ -150,7 +151,7 @@ fn yeast(
     }
 }
 
-fn main() {
+fn main() -> Result<()> {
     App::new("YeAST")
         .version("0.15.0")
         .author("Yvan SRAKA <yvan@sraka.pw>")
@@ -171,4 +172,5 @@ fn main() {
     let mut reader = std::io::BufReader::new(file);
     let context = std::env::var_os("YEAST_CONTEXT");
     print!("{}", split2(&yeast(&mut reader, &args, &context), "!#").0);
+    Ok(())
 }
