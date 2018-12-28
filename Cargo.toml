@@ -2,8 +2,9 @@
 name = "yeast"
 version = "0.17.0"
 authors = ["Yvan Sraka <yvan.sraka@gmail.com>"]
+edition = "2018"
 
 [dependencies]
+clap = "2.32.0"
 libc = "0.2.37"
 rand = "0.4.2"
-clap = "2.32.0"
