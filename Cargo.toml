@@ -3,6 +3,14 @@ name = "yeast"
 version = "0.20.0"
 authors = ["Yvan Sraka <yvan@sraka.pw>"]
 edition = "2018"
+description = "Yet Another Shell Trick"
+repository = "https://github.com/yvan-sraka/yeast"
+readme = "README.md"
+license-file = "LICENSE"
+
+[badges]
+travis-ci = { repository =  "https://github.com/yvan-sraka/yeast", branch = "master" }
+maintenance = { status = "experimental" }
 
 [dependencies]
 ansi_term = "0.11"
