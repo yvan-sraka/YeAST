@@ -18,7 +18,7 @@ more [KISS](https://en.wikipedia.org/wiki/KISS_principle).
 
 You can read more about it through:
 
--   [a blog post](https://yvan-sraka.github.io/2018/06/13/yeast.html) on
+-   [a blog post](https://yvan-sraka.github.io/1970/01/05/yeast.html) on
     my personnal web page
 -   [a lightning talk
     presentation](https://raw.githubusercontent.com/yvan-sraka/yvan-sraka.github.io/master/YeAST.pdf)
