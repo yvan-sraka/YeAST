@@ -261,7 +261,7 @@ fn exec(cmd: &str, input: String) -> String {
     // Create a named pipe using libc (see man 2 mkfifo)
     std::fs::create_dir_all("/tmp/yeast/").unwrap_or_else(|_| {
         let msg = err("couldn't create the /tmp/yeast/ folder");
-        panic!(msg)
+        panic!("{}", msg)
     });
     let uuid: String = rand::thread_rng().gen_ascii_chars().take(64).collect();
     let path = format!("/tmp/yeast/{}", uuid);
@@ -271,7 +271,7 @@ fn exec(cmd: &str, input: String) -> String {
     }
     // Read and write on the same unique named pipe in different threads
     let cin = path.clone();
-    let cout = path.clone();
+    let cout = path;
     std::thread::spawn(move || {
         // Writer thread
         let mut file = std::fs::OpenOptions::new()
@@ -279,11 +279,11 @@ fn exec(cmd: &str, input: String) -> String {
             .open(cout)
             .unwrap_or_else(|_| {
                 let msg = err("couldn't open the yeast named pipe");
-                panic!(msg)
+                panic!("{}", msg)
             });
         file.write_all(input.as_bytes()).unwrap_or_else(|_| {
             let msg = err("couldn't write the yeast named pipe");
-            panic!(msg)
+            panic!("{}", msg)
         });
     }); // This thread don't need to be join
     let cmd = if cmd.contains("$0") {
@@ -298,7 +298,7 @@ fn exec(cmd: &str, input: String) -> String {
         .output()
         .unwrap_or_else(|_| {
             let msg = err(&format!("failed to execute process: {}", sh));
-            panic!(msg)
+            panic!("{}", msg)
         });
     if output.status.success() {
         // Retreive output of shell command
@@ -312,7 +312,7 @@ fn exec(cmd: &str, input: String) -> String {
     }
 }
 
-fn readline(reader: &mut BufRead, line: &str, args: &[String]) -> String {
+fn readline(reader: &mut dyn BufRead, line: &str, args: &[String]) -> String {
     let p = line.trim_end().len(); // Position of '\n' in string
     if p == 0 {
         panic!("{}", err("a shell command should follow #!"));
@@ -323,7 +323,7 @@ fn readline(reader: &mut BufRead, line: &str, args: &[String]) -> String {
         let mut line = String::new();
         reader.read_line(&mut line).unwrap_or_else(|_| {
             let msg = err("couldn't read the input file buffer");
-            panic!(msg)
+            panic!("{}", msg)
         });
         String::from(&cmd[..p - 1]) + &readline(reader, &line, &args)
     } else {
@@ -343,12 +343,12 @@ fn split2(s: &str, b: &str) -> (String, String) {
         (String::from(&s[..p]), String::from(&s[p + b.len()..]))
     } else {
         // ... but always return a (String, String) tuple
-        (String::from(&s[..]), String::new())
+        (String::from(s), String::new())
     }
 }
 
 fn yeast(
-    reader: &mut BufRead,
+    reader: &mut dyn BufRead,
     args: &[String],
     context: &std::option::Option<std::ffi::OsString>,
 ) -> String {
@@ -383,7 +383,7 @@ fn yeast(
                 outputs += &child
                     .unwrap_or_else(|_| {
                         let msg = err("can't unwrap named thread");
-                        panic!(msg)
+                        panic!("{}", msg)
                     })
                     .join()
                     .unwrap(); // PANIC
@@ -392,7 +392,7 @@ fn yeast(
         }
         len = reader.read_line(&mut buffer).unwrap_or_else(|_| {
             let msg = err("couldn't read the input file buffer");
-            panic!(msg)
+            panic!("{}", msg)
         });
     }
 }
@@ -413,7 +413,7 @@ fn main() -> Result<()> {
     let args: Vec<String> = std::env::args().collect();
     let file = std::fs::File::open(std::path::Path::new(&args[1])).unwrap_or_else(|_| {
         let msg = err(&format!("couldn't open: {}", &args[1]));
-        panic!(msg)
+        panic!("{}", msg)
     });
     let mut reader = std::io::BufReader::new(file);
     let context = std::env::var_os("YEAST_CONTEXT");
