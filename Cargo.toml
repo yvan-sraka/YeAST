@@ -1,7 +1,7 @@
 [package]
 name = "yeast"
-version = "0.20.0"
-authors = ["Yvan Sraka <yvan@sraka.pw>"]
+version = "0.20.1"
+authors = ["Yvan Sraka <yvan@sraka.xyz>"]
 edition = "2018"
 description = "Yet Another Shell Trick"
 repository = "https://github.com/yvan-sraka/yeast"

@@ -244,12 +244,12 @@
 //! [LICENSE](https://github.com/yvan-sraka/YeAST/blob/master/LICENSE) file
 //! for details.
 
+extern crate clap;
 extern crate libc;
 extern crate rand;
-use rand::Rng;
-extern crate clap;
 use ansi_term::Colour::Red;
 use clap::{App, AppSettings, Arg};
+use rand::Rng;
 use std::io::prelude::*;
 use std::io::Result;
 
@@ -399,8 +399,8 @@ fn yeast(
 
 fn main() -> Result<()> {
     App::new("YeAST")
-        .version("0.20.0")
-        .author("Yvan SRAKA <yvan@sraka.pw>")
+        .version("0.20.1")
+        .author("Yvan SRAKA <yvan@sraka.xyz>")
         .about("Yet Another Shell Trick")
         .setting(AppSettings::TrailingVarArg)
         .arg(
