@@ -1,12 +1,12 @@
 [package]
 name = "yeast"
-version = "0.20.1"
+version = "0.20.2"
 authors = ["Yvan Sraka <yvan@sraka.xyz>"]
 edition = "2018"
 description = "Yet Another Shell Trick"
 repository = "https://github.com/yvan-sraka/yeast"
 readme = "README.md"
-license-file = "LICENSE"
+license = "GPL-3.0"
 
 [badges]
 travis-ci = { repository =  "https://github.com/yvan-sraka/yeast", branch = "master" }
