@@ -8,7 +8,7 @@ YeAST [![Build Status](https://travis-ci.org/yvan-sraka/YeAST.svg?branch=master)
 What's that?
 ------------
 
-YeAST is an extension of the bourne shell [shebangsyntax](https://en.wikipedia.org/wiki/Shebang_\(Unix\)).
+YeAST is an extension of the bourne shell [shebang syntax](https://en.wikipedia.org/wiki/Shebang_\(Unix\)).
 
 YeAST aims to solve issues of interoperability, parallel programming,
 quick prototyping and progressive refactoring by invite users to use
@@ -112,7 +112,7 @@ Real-World Examples
 -------------------
 
 The
-[basic_example](https://github.com/yvan-sraka/YeAST/blob/master/basic_example.yst)
+[basic example](https://github.com/yvan-sraka/YeAST/blob/master/basic_example.yst)
 available in this repository is fun to get a general idea behind
 YeAST! But to understand the purpose of this tool, we will go
 through examples inspired from *REAL WORLD*, mainly by my scientific
@@ -202,7 +202,7 @@ Roadmap
 -   [ ] Create packages for most UNIX distributions.
 -   [ ] Host a beautiful landing page on the `gh-page` branch of this
     repository.
--   [ ] Add Windows support (use `cmd` instead of `sh` and [Windowsnamedpipes](https://msdn.microsoft.com/en-us/library/windows/desktop/aa365590\(v=vs.85\).aspx)
+-   [ ] Add Windows support (use `cmd` instead of `sh` and [Windows named pipes](https://msdn.microsoft.com/en-us/library/windows/desktop/aa365590\(v=vs.85\).aspx)
     instead of `mkfifo`).
 -   [x] Create a small lib in each language to uniform the use of named
     pipes in sharing serialized data between processes.
